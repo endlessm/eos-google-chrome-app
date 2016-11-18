@@ -1,0 +1,16 @@
+Source: eos-google-chrome-app
+Section: admin
+Priority: standard
+Maintainer: Mario Sanchez Prada <mario@endlessm.com>
+Build-Depends: debhelper (>= 9),
+	dh-autoreconf
+Standards-Version: 3.8.0
+Homepage: http://www.endlessm.com
+XCBS-EOS-AppId: eos-google-chrome-app
+
+Package: eos-google-chrome-app
+Architecture: amd64
+Depends: ${misc:Depends}
+Description: Google Chrome launcher script
+ Small package to contain the "client side" bits of the
+ Google Chrome flatpak application (i.e. launcher script).
