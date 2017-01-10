@@ -57,13 +57,14 @@ class GoogleChromeFlatpakLauncher:
 
     FLATPAK_CHROME_APP_ID = 'com.google.Chrome'
 
-    def __init__(self, params):
+    def __init__(self, arch, params):
         self._params = params
         try:
             self._installation = Flatpak.Installation.new_system()
         except GLib.Error as e:
             exit_with_error("Could not find current system installation: {}".format(repr(e)))
 
+        self._arch = arch
         self._start()
 
     def _start(self):
@@ -144,7 +145,7 @@ class GoogleChromeFlatpakLauncher:
             exit_with_error("Could not read flatpak's metadata for Chrome")
 
         runtime = find_flatpak_ref(self._installation, runtime_extension_id,
-                                   Flatpak.RefKind.RUNTIME, runtime_version, app_arch)
+                                   Flatpak.RefKind.RUNTIME, runtime_version, self._arch)
         if runtime:
             runtime_path = runtime.get_deploy_dir()
             if not runtime_path or not os.path.exists(runtime_path):
@@ -172,5 +173,5 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.INFO)
         cmdline_args = sys.argv[2:]
 
-    GoogleChromeFlatpakLauncher(cmdline_args)
+    GoogleChromeFlatpakLauncher(app_arch, cmdline_args)
     sys.exit(0)
