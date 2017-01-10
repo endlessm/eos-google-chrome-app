@@ -57,13 +57,14 @@ class GoogleChromeFlatpakLauncher:
 
     FLATPAK_CHROME_APP_ID = 'com.google.Chrome'
 
-    def __init__(self, params):
+    def __init__(self, arch, params):
         self._params = params
         try:
             self._installation = Flatpak.Installation.new_system()
         except GLib.Error as e:
             exit_with_error("Could not find current system installation: {}".format(repr(e)))
 
+        self._arch = arch
         self._start()
 
     def _start(self):
@@ -91,7 +92,9 @@ class GoogleChromeFlatpakLauncher:
 
             # Bundled libraries need to be taken also into account
             os.environ['LD_LIBRARY_PATH'] = app_info['app_lib_path']
-            chrome_bin_path = os.path.join(app_info['runtime_path'], 'files/opt/google/chrome/google-chrome')
+
+            chrome_bin_path = os.path.join(app_info['chrome_path'], 'opt', 'google', 'chrome',
+                                           'google-chrome')
 
             try:
                 chrome_process = subprocess.Popen([chrome_bin_path] + params, env=os.environ)
@@ -106,6 +109,35 @@ class GoogleChromeFlatpakLauncher:
             # the sandboxing process, effectively terminating the process.
             sandbox_process.communicate(input=os.linesep.encode())
             logging.info("Sandbox process stopped")
+
+    def _get_legacy_chrome_runtime_path(self, app_path, app_info):
+        runtime_extension_id = '{}.external'.format(self.FLATPAK_CHROME_APP_ID)
+        try:
+            metadata_file = GLib.KeyFile()
+            metadata_file.load_from_file(os.path.join(app_path, 'metadata'), GLib.KeyFileFlags.NONE)
+
+            keyfile_group = 'Extension {}'.format(runtime_extension_id)
+            if not metadata_file.has_group(keyfile_group):
+                exit_with_error("Flatpak metadata not referencing external runtime")
+
+            runtime_version = metadata_file.get_string(keyfile_group, 'version')
+            if not runtime_version:
+                exit_with_error("Could not determine version of external runtime")
+        except GLib.Error:
+            exit_with_error("Could not read flatpak's metadata for Chrome")
+
+        runtime = find_flatpak_ref(self._installation, runtime_extension_id,
+                                   Flatpak.RefKind.RUNTIME, runtime_version, self._arch)
+        if runtime:
+            runtime_path = runtime.get_deploy_dir()
+            if not runtime_path or not os.path.exists(runtime_path):
+                exit_with_error("Could not find Chrome's external runtime directory")
+
+            runtime_path = os.path.join(runtime_path, 'files')
+            if not os.path.exists(runtime_path):
+                exit_with_error("Could not find Chrome's binaries in external runtime directory")
+
+        return runtime_path
 
     def _get_chrome_app_info(self):
         app_lib_path = None
@@ -127,31 +159,15 @@ class GoogleChromeFlatpakLauncher:
         if app_path and not app_lib_path:
             exit_with_error("Chrome's installation directory found, but not bundled libraries")
 
-        runtime_extension_id = '{}.external'.format(self.FLATPAK_CHROME_APP_ID)
-        try:
-            metadata_file = GLib.KeyFile()
-            metadata_file.load_from_file(os.path.join(app_path, 'metadata'), GLib.KeyFileFlags.NONE)
+        chrome_path = os.path.join(app_path, 'files', 'extra')
+        # We check for legacy runtimes to maintain backward-compatibility for users without
+        # support for native external apps (Flatpak <0.6.13)
+        if not os.path.exists(chrome_path):
+            logging.warning("Could not find 'extra data' directory in Chrome's Flatpak; falling "
+                            "back to the legacy runtime...")
+            chrome_path = self._get_legacy_chrome_runtime_path(app_path, app_info)
 
-            keyfile_group = 'Extension {}'.format(runtime_extension_id)
-            if not metadata_file.has_group(keyfile_group):
-                exit_with_error("Flatpak metadata not referencing external runtime")
-
-            runtime_version = metadata_file.get_string(keyfile_group, 'version')
-            if not runtime_version:
-                exit_with_error("Could not determine version of external runtime")
-
-        except GLib.Error:
-            exit_with_error("Could not read flatpak's metadata for Chrome")
-
-        runtime = find_flatpak_ref(self._installation, runtime_extension_id,
-                                   Flatpak.RefKind.RUNTIME, runtime_version, app_arch)
-        if runtime:
-            runtime_path = runtime.get_deploy_dir()
-            if not runtime_path or not os.path.exists(runtime_path):
-                exit_with_error("Could not find Chrome's external runtime directory")
-
-        # Both application and runtime directories found if reached.
-        app_info = {'app_lib_path': app_lib_path, 'runtime_path': runtime_path}
+        app_info = {'app_lib_path': app_lib_path, 'chrome_path': chrome_path}
         logging.info("Found information for Chrome: %s", repr(app_info))
         return app_info
 
@@ -172,5 +188,5 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.INFO)
         cmdline_args = sys.argv[2:]
 
-    GoogleChromeFlatpakLauncher(cmdline_args)
+    GoogleChromeFlatpakLauncher(app_arch, cmdline_args)
     sys.exit(0)
