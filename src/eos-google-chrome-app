@@ -110,7 +110,7 @@ class GoogleChromeFlatpakLauncher:
             sandbox_process.communicate(input=os.linesep.encode())
             logging.info("Sandbox process stopped")
 
-    def _get_legacy_chrome_runtime_path(self, app_path, app_info):
+    def _get_legacy_chrome_runtime_path(self, app_path):
         runtime_extension_id = '{}.external'.format(self.FLATPAK_CHROME_APP_ID)
         try:
             metadata_file = GLib.KeyFile()
@@ -126,6 +126,7 @@ class GoogleChromeFlatpakLauncher:
         except GLib.Error:
             exit_with_error("Could not read flatpak's metadata for Chrome")
 
+        runtime_path = None
         runtime = find_flatpak_ref(self._installation, runtime_extension_id,
                                    Flatpak.RefKind.RUNTIME, runtime_version, self._arch)
         if runtime:
@@ -141,7 +142,6 @@ class GoogleChromeFlatpakLauncher:
 
     def _get_chrome_app_info(self):
         app_lib_path = None
-        runtime_path = None
 
         app = find_flatpak_ref(self._installation, self.FLATPAK_CHROME_APP_ID)
         if not app:
@@ -165,7 +165,7 @@ class GoogleChromeFlatpakLauncher:
         if not os.path.exists(chrome_path):
             logging.warning("Could not find 'extra data' directory in Chrome's Flatpak; falling "
                             "back to the legacy runtime...")
-            chrome_path = self._get_legacy_chrome_runtime_path(app_path, app_info)
+            chrome_path = self._get_legacy_chrome_runtime_path(app_path)
 
         app_info = {'app_lib_path': app_lib_path, 'chrome_path': chrome_path}
         logging.info("Found information for Chrome: %s", repr(app_info))
