@@ -25,6 +25,18 @@ import os
 import subprocess
 import sys
 
+def _running_inside_flatpak():
+    runtime_dir = os.environ.get('XDG_RUNTIME_DIR')
+    if not runtime_dir:
+        return False
+    return os.path.exists(os.path.join(runtime_dir, 'flatpak-info'))
+
+# Verify if we're running inside Flatpak before we proceed with code that may fail due
+# to that reason
+if _running_inside_flatpak():
+    logging.warning("Google Chrome cannot be run inside a Flatpak sandboxed environment")
+    sys.exit(0)
+
 import gi
 gi.require_version('Flatpak', '1.0')
 from gi.repository import Flatpak
