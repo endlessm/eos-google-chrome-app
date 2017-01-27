@@ -5,6 +5,7 @@
 # Copyright (C) 2016 Endless Mobile, Inc.
 # Authors:
 #  Mario Sanchez Prada <mario@endlessm.com>
+#  Joaquim Rocha <jrocha@endlessm.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -149,6 +150,8 @@ class GoogleChromeFlatpakLauncher:
             runtime_path = os.path.join(runtime_path, 'files')
             if not os.path.exists(runtime_path):
                 exit_with_error("Could not find Chrome's binaries in external runtime directory")
+        else:
+            exit_with_error("Could not find Chrome's external runtime")
 
         return runtime_path
 
