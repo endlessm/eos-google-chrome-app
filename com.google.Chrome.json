@@ -22,7 +22,7 @@
             "sources": [
                 {
                     "type": "file",
-                    "path": "src/eos-google-chrome-app"
+                    "path": "eos-google-chrome-app"
                 },
                 {
                     "type": "file",
