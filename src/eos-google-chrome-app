@@ -167,7 +167,7 @@ class GoogleChromeFlatpakLauncher:
         if not app_path or not os.path.exists(app_path):
             exit_with_error("Could not find Chrome's application directory")
 
-        app_lib_path = os.path.join(app_path, 'files/lib/x86_64-linux-gnu')
+        app_lib_path = os.path.join(app_path, 'files/lib')
         if not os.path.exists(app_lib_path):
             exit_with_error("Could not find bundled libraries for Chrome")
 
