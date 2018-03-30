@@ -1,0 +1,34 @@
+[Desktop Entry]
+Name[hi]=Google Chrome
+Name[th]=Google Chrome
+Name[ro]=Google Chrome
+Comment[hi]=Google का लोकप्रिय वेब ब्राउज़र
+Comment[fr]=Le navigateur Web populaire de Google
+Name[pt_BR]=Google Chrome
+Comment[pt_BR]=Navegador popular do Google
+Name[es]=Google Chrome
+Comment[id]=Peramban web populer dari Google
+Name[ar]=Google Chrome
+Exec=/app/bin/eos-google-chrome-app
+Version=1.0
+Comment[vi]=Trình duyệt web phổ biến nhất của Google
+Type=Application
+Icon=com.google.Chrome
+Comment[zh_TW]=Google 的熱門網頁瀏覽器
+X-Endless-LaunchMaximized=true
+Comment[th]=เว็บเบราว์เซอร์ยอดนิยมของ Google
+Name[zh_CN]=Google Chrome
+Comment[zh_CN]=Google 出品的一款流行的 Web 浏览器
+Name[id]=Google Chrome
+Comment[ro]=Browser-ul popular Google
+Categories=Utility;
+Name[vi]=Google Chrome
+Comment[es]=Navegador popular de Google
+Name=Google Chrome
+Comment=Google's popular web browser
+Name[bn]=গুগল ক্রোম
+Name[zh_TW]=Google Chrome
+Comment[ar]=مستعرض الإنترنت الشهير من جوجل
+Name[fr]=Google Chrome
+NoDisplay=true
+
