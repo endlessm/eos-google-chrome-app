@@ -1,0 +1,140 @@
+{
+    "app-id": "com.google.Chrome",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "1.6",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "/app/bin/eos-google-chrome-app",
+    "cleanup": [
+        "/etc",
+        "/include",
+        "/lib/pkgconfig",
+        "/share/aclocal",
+        "/share/gtk-doc",
+        "/share/locale",
+        "/share/man",
+        "/share/runtime",
+        "*.la"
+    ],
+    "modules": [
+        {
+            "name": "eos-google-chrome-app",
+            "buildsystem": "simple",
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "eos-google-chrome-app"
+                },
+                {
+                    "type": "file",
+                    "path": "com.google.Chrome.appdata.xml"
+                },
+                {
+                    "type": "file",
+                    "path": "com.google.Chrome.desktop"
+                },
+                {
+                    "type": "file",
+                    "path": "product_logo_64.png"
+                },
+                {
+                    "type": "file",
+                    "path": "product_logo_128.png"
+                },
+                {
+                    "type": "file",
+                    "path": "product_logo_256.png"
+                }
+            ],
+            "build-commands": [
+                "install -d /app/bin",
+                "install eos-google-chrome-app /app/bin/eos-google-chrome-app",
+
+                "install -d /app/share/appdata",
+                "install -m644 com.google.Chrome.appdata.xml /app/share/appdata/com.google.Chrome.appdata.xml",
+
+                "install -d /app/share/applications",
+                "install -m644 com.google.Chrome.desktop /app/share/applications/com.google.Chrome.desktop",
+
+                "for icon_size in 64 128 256; do
+                     install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps
+                     install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png
+                 done"
+            ]
+        },
+        {
+            "name": "dbus-glib",
+            "cleanup": [ "/bin", "/libexec", "/etc/bash_completion.d" ],
+            "config-opts": [
+                "--disable-static",
+                "--disable-gtk-doc"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.108.tar.gz",
+                    "sha256": "9f340c7e2352e9cdf113893ca77ca9075d9f8d5e81476bf2bf361099383c602c"
+                }
+            ]
+        },
+        {
+            "name": "gconf",
+            "cleanup": [
+              "/bin",
+              "/libexec",
+              "/share/sgml",
+              "/etc/xdg/autostart",
+              "/share/dbus-1"
+            ],
+            "config-opts": [
+                "--disable-static",
+                "--disable-gtk-doc",
+                "--disable-orbit",
+                "--disable-introspection"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/GConf/3.2/GConf-3.2.6.tar.xz",
+                    "sha256": "1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c"
+                }
+            ]
+        },
+        {
+            "name": "chrome",
+            "buildsystem": "simple",
+            "sources": [
+                {
+                    "type": "extra-data",
+                    "filename": "chrome.deb",
+                    "only-arches": [ "x86_64" ],
+                    "url": "http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_65.0.3325.181-1_amd64.deb",
+                    "sha256": "2668878e7f9eff2a2ffbf2c4393b783e3d67da599b5ff94714ef1fa548e22464",
+                    "size": 52132868,
+                    "x-checker-data": {
+                        "type": "debian-repo",
+                        "package-name": "google-chrome-stable",
+                        "root": "http://dl.google.com/linux/chrome/deb",
+                        "dist": "stable",
+                        "component": "main"
+                    }
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "apply_extra",
+                    "commands": [
+                        "ar x chrome.deb",
+                        "rm -f chrome.deb",
+                        "tar xf data.tar.xz",
+                        "rm -f control.tar.gz data.tar.xz debian-binary",
+                        "chmod a+xr ."
+                    ]
+                }
+            ],
+            "build-commands": [
+                "install apply_extra /app/bin/apply_extra",
+                "install /usr/bin/ar /app/bin/ar",
+                "install -t /app/lib /usr/lib/libbfd-*.so"
+            ]
+        }
+    ]
+}
