@@ -55,10 +55,7 @@
                 "install -d /app/share/applications",
                 "install -m644 com.google.Chrome.desktop /app/share/applications/com.google.Chrome.desktop",
 
-                "for icon_size in 64 128 256; do
-                     install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps
-                     install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png
-                 done"
+                "for icon_size in 64 128 256; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png; done"
             ]
         },
         {
