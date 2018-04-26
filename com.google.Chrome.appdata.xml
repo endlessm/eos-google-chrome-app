@@ -60,6 +60,7 @@
 
 
     <metadata>
+<value key="EndlessOS::system-desktop-file">google-chrome.desktop</value>
 <value key="GnomeSoftware::popular-background">https://d3lapyynmdp1i9.cloudfront.net/thumbnails/com.google.Chrome/com.google.chrome-thumb.jpg</value>
     </metadata>
 
