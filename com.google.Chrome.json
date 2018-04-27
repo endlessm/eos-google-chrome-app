@@ -1,5 +1,6 @@
 {
     "app-id": "com.google.Chrome",
+    "branch": "eos3",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "1.6",
     "sdk": "org.freedesktop.Sdk",
