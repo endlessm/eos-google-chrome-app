@@ -3,7 +3,10 @@
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "1.6",
     "sdk": "org.freedesktop.Sdk",
-    "command": "/app/bin/eos-google-chrome-app",
+    "command": "google-chrome-launcher",
+    "finish-args": [
+        "--talk-name=org.freedesktop.Flatpak"
+    ],
     "cleanup": [
         "/etc",
         "/include",
@@ -17,12 +20,12 @@
     ],
     "modules": [
         {
-            "name": "eos-google-chrome-app",
+            "name": "google-chrome-launcher",
             "buildsystem": "simple",
             "sources": [
                 {
                     "type": "file",
-                    "path": "eos-google-chrome-app"
+                    "path": "google-chrome-launcher"
                 },
                 {
                     "type": "file",
@@ -47,7 +50,7 @@
             ],
             "build-commands": [
                 "install -d /app/bin",
-                "install eos-google-chrome-app /app/bin/eos-google-chrome-app",
+                "install google-chrome-launcher /app/bin/google-chrome-launcher",
 
                 "install -d /app/share/appdata",
                 "install -m644 com.google.Chrome.appdata.xml /app/share/appdata/com.google.Chrome.appdata.xml",
