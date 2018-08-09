@@ -7,17 +7,6 @@
     "finish-args": [
         "--talk-name=org.freedesktop.Flatpak"
     ],
-    "cleanup": [
-        "/etc",
-        "/include",
-        "/lib/pkgconfig",
-        "/share/aclocal",
-        "/share/gtk-doc",
-        "/share/locale",
-        "/share/man",
-        "/share/runtime",
-        "*.la"
-    ],
     "modules": [
         {
             "name": "google-chrome-launcher",
@@ -62,44 +51,6 @@
             ]
         },
         {
-            "name": "dbus-glib",
-            "cleanup": [ "/bin", "/libexec", "/etc/bash_completion.d" ],
-            "config-opts": [
-                "--disable-static",
-                "--disable-gtk-doc"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.108.tar.gz",
-                    "sha256": "9f340c7e2352e9cdf113893ca77ca9075d9f8d5e81476bf2bf361099383c602c"
-                }
-            ]
-        },
-        {
-            "name": "gconf",
-            "cleanup": [
-              "/bin",
-              "/libexec",
-              "/share/sgml",
-              "/etc/xdg/autostart",
-              "/share/dbus-1"
-            ],
-            "config-opts": [
-                "--disable-static",
-                "--disable-gtk-doc",
-                "--disable-orbit",
-                "--disable-introspection"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/GConf/3.2/GConf-3.2.6.tar.xz",
-                    "sha256": "1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c"
-                }
-            ]
-        },
-        {
             "name": "chrome",
             "buildsystem": "simple",
             "sources": [
@@ -133,7 +84,7 @@
             "build-commands": [
                 "install apply_extra /app/bin/apply_extra",
                 "install /usr/bin/ar /app/bin/ar",
-                "install -t /app/lib /usr/lib/libbfd-*.so"
+                "install -D -t /app/lib /usr/lib/libbfd-*.so"
             ]
         }
     ]
