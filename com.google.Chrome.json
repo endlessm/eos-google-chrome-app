@@ -1,5 +1,8 @@
 {
     "app-id": "com.google.Chrome",
+    "rename-appdata-file": "google-chrome.appdata.xml",
+    "rename-desktop-file": "google-chrome.desktop",
+    "rename-icon": "google-chrome",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "1.6",
     "sdk": "org.freedesktop.Sdk",
@@ -18,11 +21,26 @@
                 },
                 {
                     "type": "file",
-                    "path": "com.google.Chrome.appdata.xml"
+                    "url": "https://raw.githubusercontent.com/chromium/chromium/68.0.3440.84/chrome/installer/linux/common/desktop.template",
+                    "sha256": "0ed6e52311026e0f4e98d7f94832eddf59f0b9d5114551f5e9ad886050f48d21",
+                    "dest": "metadata"
                 },
                 {
                     "type": "file",
-                    "path": "com.google.Chrome.desktop"
+                    "url": "https://raw.githubusercontent.com/chromium/chromium/68.0.3440.84/chrome/installer/linux/common/google-chrome/google-chrome.appdata.xml.template",
+                    "sha256": "053cdc185c4687ad93b32b4725619993104e5cf16134adaf493327b089fd3098",
+                    "dest": "metadata"
+                },
+                {
+                    "type": "file",
+                    "url": "https://raw.githubusercontent.com/chromium/chromium/68.0.3440.84/chrome/installer/linux/common/google-chrome/google-chrome.info",
+                    "sha256": "f41cd84a84956ff339e7c0fd2e730d18ad2d712eb67c986bfe5f66c8d1c17084",
+                    "dest": "metadata"
+                },
+                {
+                    "type": "file",
+                    "path": "metadata-writer",
+                    "dest": "metadata"
                 },
                 {
                     "type": "file",
@@ -41,13 +59,10 @@
                 "install -d /app/bin",
                 "install google-chrome-launcher /app/bin/google-chrome-launcher",
 
-                "install -d /app/share/appdata",
-                "install -m644 com.google.Chrome.appdata.xml /app/share/appdata/com.google.Chrome.appdata.xml",
+                "chmod +x metadata/metadata-writer",
+                "cd metadata && ./metadata-writer",
 
-                "install -d /app/share/applications",
-                "install -m644 com.google.Chrome.desktop /app/share/applications/com.google.Chrome.desktop",
-
-                "for icon_size in 64 128 256; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png; done"
+                "for icon_size in 64 128 256; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/google-chrome.png; done"
             ]
         },
         {
