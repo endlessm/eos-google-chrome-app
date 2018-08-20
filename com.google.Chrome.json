@@ -49,10 +49,6 @@
                 {
                     "type": "file",
                     "path": "product_logo_128.png"
-                },
-                {
-                    "type": "file",
-                    "path": "product_logo_256.png"
                 }
             ],
             "build-commands": [
@@ -62,7 +58,7 @@
                 "chmod +x metadata/metadata-writer",
                 "cd metadata && ./metadata-writer",
 
-                "for icon_size in 64 128 256; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/google-chrome.png; done"
+                "for icon_size in 64 128; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/google-chrome.png; done"
             ]
         },
         {
@@ -102,7 +98,8 @@
                         "rm -f chrome.deb",
                         "tar xf data.tar.xz",
                         "rm -f control.tar.gz data.tar.xz debian-binary",
-                        "chmod a+xr ."
+                        "chmod a+xr .",
+                        "for icon_size in 16 22 24 32 48 64 128 256; do install -d export/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 opt/google/chrome/product_logo_${icon_size}.png export/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png; done"
                     ]
                 }
             ],
