@@ -18,3 +18,5 @@ install -d /app/share/appdata
 
 do_subst desktop.template /app/share/applications/google-chrome.desktop
 do_subst google-chrome.appdata.xml.template /app/share/appdata/google-chrome.appdata.xml
+
+desktop-file-edit --set-key "StartupWMClass" --set-value "google-chrome" /app/share/applications/google-chrome.desktop
