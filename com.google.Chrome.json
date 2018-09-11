@@ -1,36 +1,46 @@
 {
     "app-id": "com.google.Chrome",
+    "rename-appdata-file": "google-chrome.appdata.xml",
+    "rename-desktop-file": "google-chrome.desktop",
+    "rename-icon": "google-chrome",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "1.6",
     "sdk": "org.freedesktop.Sdk",
-    "command": "/app/bin/eos-google-chrome-app",
-    "cleanup": [
-        "/etc",
-        "/include",
-        "/lib/pkgconfig",
-        "/share/aclocal",
-        "/share/gtk-doc",
-        "/share/locale",
-        "/share/man",
-        "/share/runtime",
-        "*.la"
+    "command": "google-chrome-launcher",
+    "finish-args": [
+        "--talk-name=org.freedesktop.Flatpak"
     ],
     "modules": [
         {
-            "name": "eos-google-chrome-app",
+            "name": "google-chrome-launcher",
             "buildsystem": "simple",
             "sources": [
                 {
                     "type": "file",
-                    "path": "eos-google-chrome-app"
+                    "path": "google-chrome-launcher"
                 },
                 {
                     "type": "file",
-                    "path": "com.google.Chrome.appdata.xml"
+                    "url": "https://raw.githubusercontent.com/chromium/chromium/68.0.3440.84/chrome/installer/linux/common/desktop.template",
+                    "sha256": "0ed6e52311026e0f4e98d7f94832eddf59f0b9d5114551f5e9ad886050f48d21",
+                    "dest": "metadata"
                 },
                 {
                     "type": "file",
-                    "path": "com.google.Chrome.desktop"
+                    "url": "https://raw.githubusercontent.com/chromium/chromium/68.0.3440.84/chrome/installer/linux/common/google-chrome/google-chrome.appdata.xml.template",
+                    "sha256": "053cdc185c4687ad93b32b4725619993104e5cf16134adaf493327b089fd3098",
+                    "dest": "metadata"
+                },
+                {
+                    "type": "file",
+                    "url": "https://raw.githubusercontent.com/chromium/chromium/68.0.3440.84/chrome/installer/linux/common/google-chrome/google-chrome.info",
+                    "sha256": "f41cd84a84956ff339e7c0fd2e730d18ad2d712eb67c986bfe5f66c8d1c17084",
+                    "dest": "metadata"
+                },
+                {
+                    "type": "file",
+                    "path": "metadata-writer",
+                    "dest": "metadata"
                 },
                 {
                     "type": "file",
@@ -39,60 +49,25 @@
                 {
                     "type": "file",
                     "path": "product_logo_128.png"
-                },
-                {
-                    "type": "file",
-                    "path": "product_logo_256.png"
                 }
             ],
             "build-commands": [
                 "install -d /app/bin",
-                "install eos-google-chrome-app /app/bin/eos-google-chrome-app",
+                "install google-chrome-launcher /app/bin/google-chrome-launcher",
 
-                "install -d /app/share/appdata",
-                "install -m644 com.google.Chrome.appdata.xml /app/share/appdata/com.google.Chrome.appdata.xml",
+                "chmod +x metadata/metadata-writer",
+                "cd metadata && ./metadata-writer",
 
-                "install -d /app/share/applications",
-                "install -m644 com.google.Chrome.desktop /app/share/applications/com.google.Chrome.desktop",
-
-                "for icon_size in 64 128 256; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png; done"
+                "for icon_size in 64 128; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/google-chrome.png; done"
             ]
         },
         {
-            "name": "dbus-glib",
-            "cleanup": [ "/bin", "/libexec", "/etc/bash_completion.d" ],
-            "config-opts": [
-                "--disable-static",
-                "--disable-gtk-doc"
-            ],
+            "name": "libXScrnSaver",
             "sources": [
-                {
+	        {
                     "type": "archive",
-                    "url": "https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.108.tar.gz",
-                    "sha256": "9f340c7e2352e9cdf113893ca77ca9075d9f8d5e81476bf2bf361099383c602c"
-                }
-            ]
-        },
-        {
-            "name": "gconf",
-            "cleanup": [
-              "/bin",
-              "/libexec",
-              "/share/sgml",
-              "/etc/xdg/autostart",
-              "/share/dbus-1"
-            ],
-            "config-opts": [
-                "--disable-static",
-                "--disable-gtk-doc",
-                "--disable-orbit",
-                "--disable-introspection"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/GConf/3.2/GConf-3.2.6.tar.xz",
-                    "sha256": "1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c"
+                    "url": "https://www.x.org/releases/individual/lib/libXScrnSaver-1.2.3.tar.bz2",
+                    "sha256": "f917075a1b7b5a38d67a8b0238eaab14acd2557679835b154cf2bca576e89bf8"
                 }
             ]
         },
@@ -123,14 +98,15 @@
                         "rm -f chrome.deb",
                         "tar xf data.tar.xz",
                         "rm -f control.tar.gz data.tar.xz debian-binary",
-                        "chmod a+xr ."
+                        "chmod a+xr .",
+                        "for icon_size in 16 22 24 32 48 64 128 256; do install -d export/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 opt/google/chrome/product_logo_${icon_size}.png export/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png; done"
                     ]
                 }
             ],
             "build-commands": [
                 "install apply_extra /app/bin/apply_extra",
                 "install /usr/bin/ar /app/bin/ar",
-                "install -t /app/lib /usr/lib/libbfd-*.so"
+                "install -D -t /app/lib /usr/lib/libbfd-*.so"
             ]
         }
     ]
