@@ -103,8 +103,15 @@ class GoogleChromeFlatpakLauncher:
             except OSError as e:
                 exit_with_error("Could not run sandbox process: {}".format(repr(e)))
 
-            # Bundled libraries need to be taken also into account
+            # Bundled data and libraries need to be taken also into account
+            data_dirs = app_info['app_data_path']
+            if 'XDG_DATA_DIRS' in os.environ:
+                data_dirs = ':'.join((data_dirs, os.environ['XDG_DATA_DIRS']))
+            os.environ['XDG_DATA_DIRS'] = data_dirs
             os.environ['LD_LIBRARY_PATH'] = app_info['app_lib_path']
+
+            # Override GTK theme to the bundled Adwaita variant
+            os.environ['GTK_THEME'] = 'Endless-Chrome'
 
             chrome_bin_path = os.path.join(app_info['chrome_path'], 'opt', 'google', 'chrome',
                                            'google-chrome')
@@ -167,12 +174,13 @@ class GoogleChromeFlatpakLauncher:
         if not app_path or not os.path.exists(app_path):
             exit_with_error("Could not find Chrome's application directory")
 
+        app_data_path = os.path.join(app_path, 'files/share')
+        if not os.path.exists(app_data_path):
+            exit_with_error("Could not find bundled data for Chrome")
+
         app_lib_path = os.path.join(app_path, 'files/lib')
         if not os.path.exists(app_lib_path):
             exit_with_error("Could not find bundled libraries for Chrome")
-
-        if app_path and not app_lib_path:
-            exit_with_error("Chrome's installation directory found, but not bundled libraries")
 
         chrome_path = os.path.join(app_path, 'files', 'extra')
         # We check for legacy runtimes to maintain backward-compatibility for users without
@@ -182,7 +190,11 @@ class GoogleChromeFlatpakLauncher:
                             "back to the legacy runtime...")
             chrome_path = self._get_legacy_chrome_runtime_path(app_path)
 
-        app_info = {'app_lib_path': app_lib_path, 'chrome_path': chrome_path}
+        app_info = {
+            'app_data_path': app_data_path,
+            'app_lib_path': app_lib_path,
+            'chrome_path': chrome_path
+        }
         logging.info("Found information for Chrome: %s", repr(app_info))
         return app_info
 
