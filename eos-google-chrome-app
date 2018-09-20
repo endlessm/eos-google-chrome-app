@@ -171,9 +171,6 @@ class GoogleChromeFlatpakLauncher:
         if not os.path.exists(app_lib_path):
             exit_with_error("Could not find bundled libraries for Chrome")
 
-        if app_path and not app_lib_path:
-            exit_with_error("Chrome's installation directory found, but not bundled libraries")
-
         chrome_path = os.path.join(app_path, 'files', 'extra')
         # We check for legacy runtimes to maintain backward-compatibility for users without
         # support for native external apps (Flatpak <0.6.13)
