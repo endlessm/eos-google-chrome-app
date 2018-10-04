@@ -109,7 +109,8 @@
             "build-commands": [
                 "install -d /app/share/themes/Endless-Chrome/gtk-3.0/assets",
                 "install -t /app/share/themes/Endless-Chrome/gtk-3.0/assets gtk/theme/Adwaita/assets/*.{png,svg}",
-                "install -t /app/share/themes/Endless-Chrome/gtk-3.0 gtk/theme/Adwaita/*.css"
+                "install gtk/theme/Adwaita/gtk-contained.css /app/share/themes/Endless-Chrome/gtk-3.0/gtk.css",
+                "install gtk/theme/Adwaita/gtk-contained-dark.css /app/share/themes/Endless-Chrome/gtk-3.0/gtk-dark.css"
             ]
         }
     ]
