@@ -1,7 +1,7 @@
 {
     "app-id": "com.google.Chrome",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
+    "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "/app/bin/eos-google-chrome-app",
     "cleanup": [
@@ -93,7 +93,7 @@
                 "install apply_extra /app/bin/apply_extra",
                 "install /usr/bin/ar /app/bin/ar",
                 "install -d /app/lib",
-                "install -t /app/lib /usr/lib/libbfd-*.so"
+                "install -t /app/lib /usr/lib/x86_64-linux-gnu/libbfd-*.so"
             ]
         },
         {
