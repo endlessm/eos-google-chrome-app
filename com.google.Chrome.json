@@ -1,7 +1,7 @@
 {
     "app-id": "com.google.Chrome",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
+    "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "/app/bin/eos-google-chrome-app",
     "cleanup": [
@@ -66,9 +66,9 @@
                     "type": "extra-data",
                     "filename": "chrome.deb",
                     "only-arches": [ "x86_64" ],
-                    "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_72.0.3626.81-1_amd64.deb",
-                    "sha256": "145faa3af49483277c89dfc73cd0d1e2849c065c828a80f3cc7a70a94192da25",
-                    "size": 57282416,
+                    "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_72.0.3626.96-1_amd64.deb",
+                    "sha256": "5de71bc2a69f3ba5c32c3a5b5a81dc7ad246d1e6e9acb68c0d98a8d1907ae1bf",
+                    "size": 57127360,
                     "x-checker-data": {
                         "type": "debian-repo",
                         "package-name": "google-chrome-stable",
@@ -93,7 +93,7 @@
                 "install apply_extra /app/bin/apply_extra",
                 "install /usr/bin/ar /app/bin/ar",
                 "install -d /app/lib",
-                "install -t /app/lib /usr/lib/libbfd-*.so"
+                "install -t /app/lib /usr/lib/x86_64-linux-gnu/libbfd-*.so"
             ]
         },
         {
