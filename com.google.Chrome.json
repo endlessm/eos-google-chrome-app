@@ -48,13 +48,10 @@
             "build-commands": [
                 "install -d /app/bin",
                 "install eos-google-chrome-app /app/bin/eos-google-chrome-app",
-
                 "install -d /app/share/appdata",
                 "install -m644 com.google.Chrome.appdata.xml /app/share/appdata/com.google.Chrome.appdata.xml",
-
                 "install -d /app/share/applications",
                 "install -m644 com.google.Chrome.desktop /app/share/applications/com.google.Chrome.desktop",
-
                 "for icon_size in 64 128 256; do install -d /app/share/icons/hicolor/${icon_size}x${icon_size}/apps; install -m644 product_logo_${icon_size}.png /app/share/icons/hicolor/${icon_size}x${icon_size}/apps/com.google.Chrome.png; done"
             ]
         },
@@ -65,7 +62,9 @@
                 {
                     "type": "extra-data",
                     "filename": "chrome.deb",
-                    "only-arches": [ "x86_64" ],
+                    "only-arches": [
+                        "x86_64"
+                    ],
                     "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_72.0.3626.109-1_amd64.deb",
                     "sha256": "c8bf514f3c70868120924ee2d4872a0e47dcff315bdf799ba2f98dd7aa85fe2b",
                     "size": 57273356,
