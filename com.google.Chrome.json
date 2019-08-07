@@ -65,9 +65,9 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_75.0.3770.100-1_amd64.deb",
-                    "sha256": "25c558f79e5b0461ee63ca8e95bf26030a917d6b96dbdf3e6f6c75dc829eb746",
-                    "size": 59249314,
+                    "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_75.0.3770.142-1_amd64.deb",
+                    "sha256": "8a39e922d9d0f12b79949efc46c22021f89a8207670fa9493a366ad8231b343f",
+                    "size": 59242374,
                     "x-checker-data": {
                         "type": "debian-repo",
                         "package-name": "google-chrome-stable",
