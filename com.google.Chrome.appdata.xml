@@ -69,4 +69,7 @@
   <url type="homepage">https://chrome.google.com/</url>
   <url type="bugtracker">https://support.google.com/chrome/?p=feedback</url>
   <url type="help">https://support.google.com/chrome</url>
+  <releases>
+    <release version="76.0.3809.132-1" date="2019-08-27"/>
+  </releases>
 </component>
