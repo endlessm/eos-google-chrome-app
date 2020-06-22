@@ -70,6 +70,7 @@
   <url type="bugtracker">https://support.google.com/chrome/?p=feedback</url>
   <url type="help">https://support.google.com/chrome</url>
   <releases>
+    <release version="83.0.4103.116-1" date="2020-06-19"/>
     <release version="83.0.4103.106-1" date="2020-06-12"/>
     <release version="83.0.4103.97-1" date="2020-06-02"/>
     <release version="83.0.4103.61-2" date="2020-05-25"/>
