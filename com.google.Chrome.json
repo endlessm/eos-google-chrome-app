@@ -77,19 +77,17 @@
                     }
                 },
                 {
-                    "type": "script",
-                    "dest-filename": "apply_extra",
-                    "commands": [
-                        "ar x chrome.deb",
-                        "rm -f chrome.deb",
-                        "tar xf data.tar.xz",
-                        "rm -f control.tar.gz data.tar.xz debian-binary",
-                        "chmod a+xr ."
-                    ]
+                    "type": "file",
+                    "path": "apply_extra.sh"
+                },
+                {
+                    "type": "file",
+                    "path": "chrome.sh"
                 }
             ],
             "build-commands": [
-                "install apply_extra /app/bin/apply_extra",
+                "install -Dm 755 apply_extra.sh /app/bin/apply_extra",
+                "install -Dm 755 chrome.sh /app/scripts/chrome",
                 "install /usr/bin/ar /app/bin/ar",
                 "install -d /app/lib",
                 "install -t /app/lib /usr/lib/x86_64-linux-gnu/libbfd-*.so"
