@@ -1,7 +1,7 @@
 {
     "app-id": "com.google.Chrome",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "18.08",
+    "runtime-version": "20.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "/app/bin/eos-google-chrome-app",
     "cleanup": [
@@ -65,9 +65,9 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_89.0.4389.114-1_amd64.deb",
-                    "sha256": "0ab92895e8b1b93a8d2591e0f89b32554af2ffc5a6f2bf9c1860a4ecb7a78b1b",
-                    "size": 75857544,
+                    "url": "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_89.0.4389.128-1_amd64.deb",
+                    "sha256": "1903d5f17ccdbc47bf8e07e15529a22118b192b847846a1b74f54883b11fa41e",
+                    "size": 75863124,
                     "x-checker-data": {
                         "type": "debian-repo",
                         "package-name": "google-chrome-stable",
