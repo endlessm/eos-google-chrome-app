@@ -6,7 +6,8 @@
   <project_license>Freeware under Google Chrome Terms of Service</project_license>
 
     <categories>
-        <category>Utility</category>
+        <category>Network</category>
+        <category>WebBrowser</category>
     </categories>
 
 <name xml:lang="ar">Google Chrome</name>
