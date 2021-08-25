@@ -1,0 +1,25 @@
+name: Check for updates
+
+on:
+  schedule:
+    - cron: '52 3/6 * * *'
+
+jobs:
+  check:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker://ghcr.io/flathub/flatpak-external-data-checker:latest
+        env:
+          GIT_AUTHOR_NAME: Endless External Data Checker
+          GIT_COMMITTER_NAME: Endless External Data Checker
+          GIT_AUTHOR_EMAIL: os@endlessos.org
+          GIT_COMMITTER_EMAIL: os@endlessos.org
+          # TODO: set GITHUB_TOKEN. Cannot use secrets.GITHUB_TOKEN, fails with:
+          # github.GithubException.GithubException: 403 {'message': 'Resource not accessible by integration', 'documentation_url': 'https://docs.github.com/rest/reference/repos#create-a-fork'}
+
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: |
+            --update com.google.Chrome.json
