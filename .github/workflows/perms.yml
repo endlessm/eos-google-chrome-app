@@ -19,9 +19,3 @@ jobs:
           ./repoperms.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Show permissions curl
-        run: |
-          echo -n "$GITHUB_TOKEN" | base64
-          curl -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$GITHUB_REPOSITORY" | jq
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
