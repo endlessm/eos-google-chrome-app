@@ -3,6 +3,9 @@ name: Check for updates
 on:
   schedule:
     - cron: '52 3/6 * * *'
+  pull_request:
+    branches:
+      - master
 
 jobs:
   check:
@@ -22,4 +25,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: |
-            --update com.google.Chrome.json
+            --verbose --update com.google.Chrome.json
