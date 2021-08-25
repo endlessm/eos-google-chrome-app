@@ -8,14 +8,19 @@ jobs:
       - name: System dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip
+          sudo apt-get install -y python3-pip curl jq
       - name: Python dependencies
         run: |
           python3 -m pip install PyGithub
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Show permissions
+      - name: Show permissions python
         run: |
           ./repoperms.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Show permissions curl
+        run: |
+          curl -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$GITHUB_REPOSITORY" | jq
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
