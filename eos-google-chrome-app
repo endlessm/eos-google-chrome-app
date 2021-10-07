@@ -50,7 +50,7 @@ def exit_with_error(message):
 
 
 def find_flatpak_ref(ref_id, kind=Flatpak.RefKind.APP, branch=None, arch=None):
-    installations = [Flatpak.Installation.new_user()] + Flatpak.get_system_installations()
+    installations = Flatpak.get_system_installations()
     ref_found = None
 
     for installation in installations:
