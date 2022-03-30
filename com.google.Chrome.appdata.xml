@@ -71,6 +71,7 @@
   <url type="bugtracker">https://support.google.com/chrome/?p=feedback</url>
   <url type="help">https://support.google.com/chrome</url>
   <releases>
+    <release version="100.0.4896.60-1" date="2022-03-26"/>
     <release version="99.0.4844.84-1" date="2022-03-24"/>
     <release version="99.0.4844.82-1" date="2022-03-19"/>
     <release version="99.0.4844.74-1" date="2022-03-14"/>
