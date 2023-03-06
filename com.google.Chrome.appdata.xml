@@ -53,16 +53,16 @@
 <description><p>Google Chrome is one of the world's most popular web browsers. If you have trouble watching videos online with other browsers, try Google Chrome since it has built-in support for the most common video-streaming service websites. ** Requires internet</p></description>
 
 
-<screenshots><screenshot><image type="source" xml:lang="pt">https://d3lapyynmdp1i9.cloudfront.net/screenshots/com.google.Chrome/pt/com.google.chrome-screenshot1.jpg</image>
-<image type="source">https://d3lapyynmdp1i9.cloudfront.net/screenshots/com.google.Chrome/C/com.google.chrome-screenshot1.jpg</image>
-<image type="source" xml:lang="es">https://d3lapyynmdp1i9.cloudfront.net/screenshots/com.google.Chrome/es/com.google.chrome-screenshot1.jpg</image>
+<screenshots><screenshot><image type="source" xml:lang="pt">https://appstream.endlessos.org/screenshots/com.google.Chrome/pt/com.google.chrome-screenshot1.jpg</image>
+<image type="source">https://appstream.endlessos.org/screenshots/com.google.Chrome/C/com.google.chrome-screenshot1.jpg</image>
+<image type="source" xml:lang="es">https://appstream.endlessos.org/screenshots/com.google.Chrome/es/com.google.chrome-screenshot1.jpg</image>
 </screenshot>
 </screenshots>
 
 
     <metadata>
 <value key="EndlessOS::system-desktop-file">google-chrome.desktop</value>
-<value key="GnomeSoftware::popular-background">https://d3lapyynmdp1i9.cloudfront.net/thumbnails/com.google.Chrome/com.google.chrome-thumb.jpg</value>
+<value key="GnomeSoftware::popular-background">https://appstream.endlessos.org/thumbnails/com.google.Chrome/com.google.chrome-thumb.jpg</value>
     </metadata>
 
 
