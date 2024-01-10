@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: docker://ghcr.io/flathub/flatpak-external-data-checker:latest
         env:
           GIT_AUTHOR_NAME: Endless External Data Checker
