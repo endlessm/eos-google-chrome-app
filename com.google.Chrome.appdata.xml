@@ -240,4 +240,6 @@
     <release version="77.0.3865.75" date="2019-09-08"/>
     <release version="76.0.3809.132-1" date="2019-08-27"/>
   </releases>
+
+  <content_rating type="oars-1.1"/>
 </component>
