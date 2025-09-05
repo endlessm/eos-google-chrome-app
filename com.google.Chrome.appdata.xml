@@ -71,8 +71,11 @@
   <url type="bugtracker">https://support.google.com/chrome/?p=feedback</url>
   <url type="help">https://support.google.com/chrome</url>
   <releases>
-    <release version="139.0.7258.154-1" date="2025-08-26">
+    <release version="140.0.7339.80-1" date="2025-09-04">
       <description></description>
+    </release>
+    <release version="139.0.7258.154-1" date="2025-08-26">
+      <description/>
     </release>
     <release version="139.0.7258.138-1" date="2025-08-19">
       <description/>
