@@ -1,4 +1,3 @@
 {
-    "//": "This ought to work even though it's not 'flathubbot' running the checker",
-    "automerge-flathubbot-prs": true
+    "end-of-life": "Use com.google.Chrome from flathub instead. Devices running Endless OS 6.0.8 should have been automatically migrated to that version."
 }
